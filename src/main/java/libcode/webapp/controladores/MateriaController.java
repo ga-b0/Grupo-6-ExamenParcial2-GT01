@@ -30,20 +30,15 @@ public class MateriaController {
         materiasList = servicio.getMaterias();
     }
     
-    public List<Materia> getMateriasList() {
-        return materiasList;
-    }
-
-    public void setMateriasList(List<Materia> materiasList) {
-        this.materiasList = materiasList;
-    }
-    
-    public Materia getMateria() {
-        return materia;
-    }
-
-    public void setMateria(Materia materia) {
-        this.materia = materia;
+    public void guardarMateria()
+    {
+        if(materia.getId()!=null ){
+            servicio.editMateria(materia);
+        } else {
+            servicio.saveMateria(materia);
+        }
+        materia = new Materia();
+        cargarMaterias();
     }
     
     public void llenarFormEditar(Materia materia)
@@ -58,5 +53,21 @@ public class MateriaController {
     {
         servicio.deleteMateria(materia);
         cargarMaterias();
+    }
+    
+    public List<Materia> getMateriasList() {
+        return materiasList;
+    }
+
+    public void setMateriasList(List<Materia> materiasList) {
+        this.materiasList = materiasList;
+    }
+    
+    public Materia getMateria() {
+        return materia;
+    }
+
+    public void setMateria(Materia materia) {
+        this.materia = materia;
     }
 }
