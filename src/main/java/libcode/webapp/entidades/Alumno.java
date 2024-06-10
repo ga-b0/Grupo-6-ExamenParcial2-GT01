@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package libcode.webapp.entidades;
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -10,8 +11,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Column;
+import jakarta.persistence.OneToMany;
 import java.util.Objects;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author Gabo
@@ -32,6 +36,10 @@ public class Alumno implements Serializable {
     
     @Column(name = "carnet")
     private String carnet;
+    
+    @OneToMany(mappedBy = "alumno")
+    @JsonbTransient
+    private List<Inscripciones> inscripciones = new ArrayList<>();
 
     public Alumno(Integer id, String nombre, String carnet) {
         this.id = id;
@@ -101,6 +109,14 @@ public class Alumno implements Serializable {
 
     public void setCarnet(String carnet) {
         this.carnet = carnet;
+    }
+    
+    public List<Inscripciones> getInscripciones() {
+        return inscripciones;
+    }
+
+    public void setInscripciones(List<Inscripciones> inscripciones) {
+        this.inscripciones = inscripciones;
     }
     
 }

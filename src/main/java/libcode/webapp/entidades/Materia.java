@@ -1,5 +1,6 @@
 package libcode.webapp.entidades;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -7,8 +8,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Column;
+import jakarta.persistence.OneToMany;
 import java.util.Objects;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "materia")
@@ -29,6 +33,10 @@ public class Materia implements Serializable {
 
     @Column(name = "codigo")
     private String codigo;
+    
+    @OneToMany(mappedBy = "materia")
+    @JsonbTransient
+    private List<Inscripciones> inscripciones = new ArrayList<>();
 
     public Materia(Integer id, String nombre, String descripcion, String codigo) {
         this.id = id;
@@ -107,5 +115,13 @@ public class Materia implements Serializable {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+    
+    public List<Inscripciones> getInscripciones() {
+        return inscripciones;
+    }
+
+    public void setInscripciones(List<Inscripciones> inscripciones) {
+        this.inscripciones = inscripciones;
     }
 }

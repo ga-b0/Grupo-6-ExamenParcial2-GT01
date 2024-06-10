@@ -4,6 +4,7 @@
  */
 package libcode.webapp.entidades;
 
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -24,7 +25,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "inscripciones")
-public class Inscripciones {
+public class Inscripciones implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "inscripciones_id_seq")
@@ -35,10 +36,12 @@ public class Inscripciones {
     
     @ManyToOne
     @JoinColumn(name = "alumno_id")
+    @JsonbTransient
     private Alumno alumno;
 
     @ManyToOne
     @JoinColumn(name = "materia_id")
+    @JsonbTransient
     private Materia materia;
 
     @Column(name = "ciclo")
@@ -66,6 +69,12 @@ public class Inscripciones {
     
     public Inscripciones(){
     
+    }
+    
+    public Inscripciones(Integer id, Alumno alumno, Materia materia) {
+        this.id = id;
+        this.alumno = alumno;
+        this.materia = materia;
     }
 
     @Override

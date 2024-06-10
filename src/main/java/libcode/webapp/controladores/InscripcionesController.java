@@ -29,9 +29,9 @@ public class InscripcionesController {
         inscripcionesList = servicio.getInscripciones();
     }
     
-    public void guardarInscripcion()
-    {
-        if(inscripcion.getId()!=null ){
+    public void guardarInscripcion() {
+        System.out.println("Inscripción a guardar: " + inscripcion);
+        if(inscripcion.getId() != null) {
             servicio.editInscripcion(inscripcion);
         } else {
             servicio.saveInscripcion(inscripcion);
